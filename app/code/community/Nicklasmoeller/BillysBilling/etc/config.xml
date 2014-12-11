@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <Nicklasmoeller_BillysBilling>
+            <version>0.0.1</version>
+        </Nicklasmoeller_BillysBilling>
+    </modules>
+
+    <global>
+        <helpers>
+            <nicklasmoeller_billysbilling>
+                <class>Nicklasmoeller_BillysBilling_Helper</class>
+            </nicklasmoeller_billysbilling>
+        </helpers>
+        <models>
+            <nicklasmoeller_billysbilling>
+                <class>Nicklasmoeller_BillysBilling_Model</class>
+            </nicklasmoeller_billysbilling>
+        </models>
+
+        <events>
+            <sales_order_invoice_register>
+                <observers>
+                    <billysbilling_invoice_register_success>
+                        <type>singleton</type>
+                        <class>nicklasmoeller_billysbilling/observer</class>
+                        <method>billysObserver</method>
+                    </billysbilling_invoice_register_success>
+                </observers>
+            </sales_order_invoice_register>
+
+            <sales_order_creditmemo_refund>
+                <observers>
+                    <billysbilling_creditmemo_register_success>
+                        <type>singleton</type>
+                        <class>nicklasmoeller_billysbilling/observer</class>
+                        <method>billysObserver</method>
+                    </billysbilling_creditmemo_register_success>
+                </observers>
+            </sales_order_creditmemo_refund>
+        </events>
+    </global>
+</config>
