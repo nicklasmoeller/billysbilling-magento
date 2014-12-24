@@ -15,7 +15,7 @@ class Nicklasmoeller_BillysBilling_Model_Observer
     /**
      * @var string
      */
-    protected $apiUri;
+    protected $apiUri = "https://api.billysbilling.com/v2";
 
     /**
      * @var
