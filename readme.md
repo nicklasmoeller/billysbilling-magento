@@ -1,21 +1,20 @@
-# Magento: Billy's Billing
+# Billy's Billing: Magento
 
 **This integration is still in an early alpha. Use with caution, I am not to be held responsible for anything that might go wrong**
 
 ### How to use
-Simply download the code source, by clicking the "Download ZIP" in the right side of this page. If you're a bit more advanced, you can do a `git clone` or whatever you like.
+A link to Magento Connect will soon be given here, for easier installation.
 
-Extract the archive, and upload it to your document root on your FTP, and go on. Log in to your Magento administration panel, and go to _System_ -> _Configuration_ -> _Billy's Billing_, and input your API key, and simply use `https://api.billysbilling.com/v2` as your API URI.
+When installed on your Magento store, there's only a single step to follow;
+
+Log in to your Magento administration panel, and go to _System_ -> _Configuration_ -> _Billy's Billing_, and input your API key.
 
 You're ready to go. The integration will listen for invoices, and credit memos from now on.
 
 ### Todo
 - Refactor
 - Better automation
-- Refactor
-- Refactor
-- Refactor
-- More to come
+- More to come, suggestions?
 
 ### Questions, errors, or anything likewise
-Hit me up on [nicklasmoeller@outlook.com](mailto:nicklasmoeller@outlook.com), and I will return to you as soon as possible.
+Hit me up on [hello@nicklasmoeller.com](mailto:hello@nicklasmoeller.com), and I will return to you as soon as possible.
