@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
     <modules>
-        <Nicklasmoeller_BillysBilling>
-            <version>0.1.1</version>
-        </Nicklasmoeller_BillysBilling>
+        <Nicklasmoeller_Billysbilling>
+            <version>0.1.2</version>
+        </Nicklasmoeller_Billysbilling>
     </modules>
 
     <global>
         <helpers>
-            <nicklasmoeller_billysbilling>
-                <class>Nicklasmoeller_BillysBilling_Helper</class>
-            </nicklasmoeller_billysbilling>
+            <billysbilling>
+                <class>Nicklasmoeller_Billysbilling_Helper</class>
+            </billysbilling>
         </helpers>
         <models>
-            <nicklasmoeller_billysbilling>
-                <class>Nicklasmoeller_BillysBilling_Model</class>
-            </nicklasmoeller_billysbilling>
+            <billysbilling>
+                <class>Nicklasmoeller_Billysbilling_Model</class>
+            </billysbilling>
         </models>
 
         <events>
@@ -23,7 +23,7 @@
                 <observers>
                     <billysbilling_invoice_register_success>
                         <type>singleton</type>
-                        <class>nicklasmoeller_billysbilling/observer</class>
+                        <class>billysbilling/observer</class>
                         <method>billysObserver</method>
                     </billysbilling_invoice_register_success>
                 </observers>
@@ -33,11 +33,18 @@
                 <observers>
                     <billysbilling_creditmemo_register_success>
                         <type>singleton</type>
-                        <class>nicklasmoeller_billysbilling/observer</class>
+                        <class>billysbilling/observer</class>
                         <method>billysObserver</method>
                     </billysbilling_creditmemo_register_success>
                 </observers>
             </sales_order_creditmemo_refund>
         </events>
     </global>
+    <default>
+        <billysbilling>
+            <settings>
+                <enabled>1</enabled>
+            </settings>
+        </billysbilling>
+    </default>
 </config>

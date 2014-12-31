@@ -1,2 +1,2 @@
-src/app/code/community/Nicklasmoeller/BillysBilling             app/code/community/Nicklasmoeller/BillysBilling/
-src/app/etc/modules/Nicklasmoeller_BillysBilling.xml            app/etc/modules/Nicklasmoeller_BillysBilling.xml
+src/app/code/community/Nicklasmoeller/Billysbilling             app/code/community/Nicklasmoeller/Billysbilling/
+src/app/etc/modules/Nicklasmoeller_Billysbilling.xml            app/etc/modules/Nicklasmoeller_Billysbilling.xml

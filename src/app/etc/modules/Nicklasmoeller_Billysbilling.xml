@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
     <modules>
-        <Nicklasmoeller_BillysBilling>
+        <Nicklasmoeller_Billysbilling>
             <active>true</active>
             <codePool>community</codePool>
-        </Nicklasmoeller_BillysBilling>
+        </Nicklasmoeller_Billysbilling>
     </modules>
 </config>
