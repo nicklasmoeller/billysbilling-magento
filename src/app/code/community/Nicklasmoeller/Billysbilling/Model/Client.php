@@ -52,12 +52,6 @@ class Nicklasmoeller_Billysbilling_Model_Client
         $body = json_decode($response);
         $info = curl_getinfo($ch);
 
-        // We're in testing phases. Don't delete these lines, for debugging purposes
-        Mage::log($method . ": " . $endpoint . ": ", null, 'curl.log');
-        Mage::log($remember_body, null, 'curl.log');
-        Mage::log($info, null, 'curl.log');
-        Mage::log($body, null, 'curl.log');
-
         return (object) [
             'status' => $info['http_code'],
             'body'   => $body
