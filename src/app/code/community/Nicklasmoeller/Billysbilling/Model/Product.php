@@ -50,7 +50,6 @@ class Nicklasmoeller_Billysbilling_Model_Product extends Nicklasmoeller_Billysbi
         $product->prices         = array(
             $this->buildPrice($productData->getPrice())
         );
-        $product->isAppliedToSales = true;
 
         return $product;
     }

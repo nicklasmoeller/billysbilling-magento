@@ -35,7 +35,6 @@ class Nicklasmoeller_Billysbilling_Model_Client
      */
     public function request($method, $endpoint, $body = null)
     {
-        $remember_body = $body;
         $headers = ["X-Access-Token: " . $this->key];
         $ch = curl_init($this->uri . $endpoint);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);

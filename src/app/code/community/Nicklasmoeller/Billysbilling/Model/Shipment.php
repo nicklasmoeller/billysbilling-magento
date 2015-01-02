@@ -45,11 +45,12 @@ class Nicklasmoeller_Billysbilling_Model_Shipment extends Nicklasmoeller_Billysb
     {
         $shipping = new stdClass();
 
-        $shipping->organizationId = Mage::getSingleton('billysbilling/organization')->getOrganizationId();
-        $shipping->name           = 'Fragt';
-        $shipping->description    = $orderData->getShippingDescription();
-        $shipping->productNo      = $orderData->getShippingMethod();
-        $shipping->prices         = array(
+        $shipping->organizationId       = Mage::getSingleton('billysbilling/organization')->getOrganizationId();
+        $shipping->name                 = 'Fragt';
+        $shipping->description          = $orderData->getShippingDescription();
+        $shipping->productNo            = $orderData->getShippingMethod();
+        $shipping->salesTaxRulesetId    = $this->client->request('GET', '/salesTaxRulesets?abbreviation=F')->body->salesTaxRulesets[0]->id;
+        $shipping->prices               = array(
             Mage::getSingleton('billysbilling/product')->buildPrice($orderData->getShippingInvoiced())
         );
 

@@ -60,7 +60,7 @@ class Nicklasmoeller_Billysbilling_Model_Invoice extends Nicklasmoeller_Billysbi
         $invoice->currencyId       = Mage::getSingleton('billysbilling/currency')->getCurrency($orderData->getOrderCurrencyCode())->id;
         $invoice->entryDate        = $entryDate;
         $invoice->paymentTermsDays = $paymentTermsDays;
-        $invoice->taxMode          = 'incl';
+        $invoice->taxMode          = 'excl';
 
         $invoice->lines = $this->buildInvoiceLines($orderData);
 
@@ -94,20 +94,20 @@ class Nicklasmoeller_Billysbilling_Model_Invoice extends Nicklasmoeller_Billysbi
 
         foreach ($products as $product) {
             $tempProduct = Mage::getSingleton('billysbilling/product')->getProduct($product);
+            
+            Mage::log($tempProduct, null, 'product.log');
 
             $lines[$i]                = new stdClass();
             $lines[$i]->productId     = $tempProduct->id;
             $lines[$i]->description   = '';
             $lines[$i]->quantity      = $product->getQtyOrdered();
-            $lines[$i]->unitPrice     = $product->getPrice() + ($product->getPrice() * Mage::getSingleton('billysbilling/tax')->getTaxRate($orderData)->rate);
+            $lines[$i]->unitPrice     = $product->getPrice();
 
             if ($product->getDiscountAmount() > 0) {
                 $lines[$i]->discountText  = 'Discounted';
                 $lines[$i]->discountMode  = 'cash';
                 $lines[$i]->discountValue = $product->getDiscountAmount();
             }
-
-            $lines[$i]->taxRateId   = Mage::getSingleton('billysbilling/tax')->getTaxRate($orderData)->id;
 
             $i++;
         }
