@@ -1,7 +1,5 @@
 # Billy's Billing: Magento
 
-**This integration is still in an early alpha. Use with caution, I am not to be held responsible for anything that might go wrong**
-
 ### How to use
 A link to Magento Connect will soon be given here, for easier installation.
 
@@ -12,7 +10,6 @@ Log in to your Magento administration panel, and go to _System_ -> _Configuratio
 You're ready to go. The integration will listen for invoices, and credit memos from now on.
 
 ### Todo
-- Refactor
 - Better automation
 - More to come, suggestions?
 
