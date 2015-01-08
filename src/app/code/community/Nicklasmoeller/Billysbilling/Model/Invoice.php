@@ -95,8 +95,6 @@ class Nicklasmoeller_Billysbilling_Model_Invoice extends Nicklasmoeller_Billysbi
         foreach ($products as $product) {
             $tempProduct = Mage::getSingleton('billysbilling/product')->getProduct($product);
             
-            Mage::log($tempProduct, null, 'product.log');
-
             $lines[$i]                = new stdClass();
             $lines[$i]->productId     = $tempProduct->id;
             $lines[$i]->description   = '';
