@@ -4,7 +4,6 @@
  * Class Nicklasmoeller_Billysbilling_Model_Contact
  *
  * @author Nicklas Møller <hello@nicklasmoeller.com>
- * @version 0.2.0
  */
 class Nicklasmoeller_Billysbilling_Model_Contact extends Nicklasmoeller_Billysbilling_Model_Abstract
 {
