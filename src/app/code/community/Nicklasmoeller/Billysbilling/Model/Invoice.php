@@ -85,7 +85,7 @@ class Nicklasmoeller_Billysbilling_Model_Invoice extends Nicklasmoeller_Billysbi
     {
         $lines = array();
 
-        $products = $orderData->getAllItems();
+        $products = $orderData->getAllVisibleItems();
 
         $this->client->request("GET", "/invoices");
 
