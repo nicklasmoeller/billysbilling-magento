@@ -10,6 +10,9 @@ class Nicklasmoeller_Billysbilling_Model_Contact extends Nicklasmoeller_Billysbi
 {
     protected $customer;
 
+    protected $prefix = "m_";
+    public $id;
+
     /**
      * @param $billingAddress
      *
@@ -21,7 +24,13 @@ class Nicklasmoeller_Billysbilling_Model_Contact extends Nicklasmoeller_Billysbi
             return $this->customer;
         }
 
-        $res = $this->client->request("GET", "/contacts?contactNo=" . $billingAddress->getCustomerId());
+        if (Mage::helper('billysbilling')->isSingleCustomer() || !$billingAddress->getCustomerId()) {
+            $this->id = $this->prefix . 'm';
+        } else {
+            $this->id = $this->prefix . $billingAddress->getCustomerId();
+        }
+
+        $res = $this->client->request("GET", "/contacts?contactNo=" . $this->id);
 
         if ($res->body->meta->paging->total > 0) {
             $this->customer = $res->body->contacts[0];
@@ -31,9 +40,9 @@ class Nicklasmoeller_Billysbilling_Model_Contact extends Nicklasmoeller_Billysbi
 
         $contact = $this->buildCustomer($billingAddress);
 
-        $res = $this->client->request("POST", "/contacts", array(
+        $res = $this->client->request("POST", "/contacts", [
             'contact' => $contact
-        ));
+        ]);
 
         if ($res->status !== 200) {
             return false;
@@ -54,24 +63,30 @@ class Nicklasmoeller_Billysbilling_Model_Contact extends Nicklasmoeller_Billysbi
         $contact = new stdClass();
 
         $contact->organizationId = Mage::getSingleton('billysbilling/organization')->getOrganizationId();
-        $contact->contactNo      = $billingAddress->getCustomerId();
-        $contact->countryId      = Mage::getSingleton('billysbilling/country')->getCountry($billingAddress->getCountryId());
-        $contact->zipcodeText    = $billingAddress->getPostcode();
-        $contact->stateText      = $billingAddress->getRegion();
-        $contact->cityText       = $billingAddress->getCity();
-        $contact->street         = $billingAddress->getStreetFull();
-        $contact->registrationNo = $billingAddress->getVatId();
-        $contact->phone          = $billingAddress->getTelephone();
-        $contact->isCustomer     = true;
+        $contact->contactNo = $this->id;
 
-        if ($billingAddress->getCompany()) {
-            $contact->type = 'company';
-            $contact->name = $billingAddress->getCompany();
+        if (Mage::helper('billysbilling')->isSingleCustomer() || !$billingAddress->getCustomerId()) {
+            $contact->type              = 'person';
+            $contact->name              = 'Magento Sales';
+            $contact->countryId         = Mage::getSingleton('billysbilling/country')->getCountry('DK');
         } else {
-            $contact->type = 'person';
-            $contact->name = $billingAddress->getName();
-        }
+            $contact->countryId         = Mage::getSingleton('billysbilling/country')->getCountry($billingAddress->getCountryId());
+            $contact->zipcodeText       = $billingAddress->getPostcode();
+            $contact->stateText         = $billingAddress->getRegion();
+            $contact->cityText          = $billingAddress->getCity();
+            $contact->street            = $billingAddress->getStreetFull();
+            $contact->registrationNo    = $billingAddress->getVatId();
+            $contact->phone             = $billingAddress->getTelephone();
+            $contact->isCustomer        = true;
 
+            if ($billingAddress->getCompany()) {
+                $contact->type = 'company';
+                $contact->name = $billingAddress->getCompany();
+            } else {
+                $contact->type = 'person';
+                $contact->name = $billingAddress->getName();
+            }
+        }
         return $contact;
     }
 }

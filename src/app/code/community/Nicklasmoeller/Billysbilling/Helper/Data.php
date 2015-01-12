@@ -22,4 +22,12 @@ class Nicklasmoeller_Billysbilling_Helper_Data extends Mage_Core_Helper_Abstract
     {
         return (boolean) Mage::getStoreConfig('billysbilling/api/key');
     }
+
+    /**
+     * @return bool
+     */
+    public function isSingleCustomer()
+    {
+        return (boolean) Mage::getStoreConfig('billysbilling/settings/singleuser');
+    }
 }
