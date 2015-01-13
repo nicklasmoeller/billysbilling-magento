@@ -43,5 +43,4 @@ class Nicklasmoeller_Billysbilling_Model_Country extends Nicklasmoeller_Billysbi
 
         return $this->country;
     }
-
 }
