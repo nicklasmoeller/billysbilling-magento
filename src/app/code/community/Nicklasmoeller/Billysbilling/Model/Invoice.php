@@ -109,7 +109,9 @@ class Nicklasmoeller_Billysbilling_Model_Invoice extends Nicklasmoeller_Billysbi
             $i++;
         }
 
-        $lines[$i] = Mage::getSingleton('billysbilling/shipment')->getShipping($orderData);
+        if ($orderData->getShippingInvoiced() > 0) {
+            $lines[$i] = Mage::getSingleton('billysbilling/shipment')->getShipping($orderData);
+        }
 
         return $lines;
     }

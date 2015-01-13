@@ -7,10 +7,11 @@
  */
 class Nicklasmoeller_Billysbilling_Model_Contact extends Nicklasmoeller_Billysbilling_Model_Abstract
 {
-    protected $customer;
-
-    protected $prefix = "m_";
     public $id;
+
+    protected $customer;
+    protected $prefix = "m_";
+    protected $country;
 
     /**
      * @param $billingAddress
@@ -23,8 +24,14 @@ class Nicklasmoeller_Billysbilling_Model_Contact extends Nicklasmoeller_Billysbi
             return $this->customer;
         }
 
+        $this->country = $billingAddress->getCountryId();
+
         if (Mage::helper('billysbilling')->isSingleCustomer() || !$billingAddress->getCustomerId()) {
-            $this->id = $this->prefix . 'm';
+            $this->id = $this->prefix . $this->country;
+
+            if ($billingAddress->getCompany()) {
+                $this->id .= '_c';
+            }
         } else {
             $this->id = $this->prefix . $billingAddress->getCustomerId();
         }
@@ -61,15 +68,28 @@ class Nicklasmoeller_Billysbilling_Model_Contact extends Nicklasmoeller_Billysbi
     {
         $contact = new stdClass();
 
-        $contact->organizationId = Mage::getSingleton('billysbilling/organization')->getOrganizationId();
-        $contact->contactNo = $this->id;
+        $contact->organizationId        = Mage::getSingleton('billysbilling/organization')->getOrganizationId();
+        $contact->contactNo             = $this->id;
 
         if (Mage::helper('billysbilling')->isSingleCustomer() || !$billingAddress->getCustomerId()) {
             $contact->type              = 'person';
             $contact->name              = 'Magento Sales';
-            $contact->countryId         = Mage::getSingleton('billysbilling/country')->getCountry('DK');
+
+            if ($this->country == "DK" || $this->country == "US") {
+                $contact->countryId     = Mage::getSingleton('billysbilling/country')->getCountry($this->country);
+                $contact->name .= ' ' . $this->country;
+            } else {
+                $contact->countryId     = Mage::getSingleton('billysbilling/country')->getCountry('DE');
+                $contact->name .= ' EU';
+            }
+
+            if ($billingAddress->getCompany()) {
+                $contact->type = 'company';
+                $contact->name .= ' company';
+            }
+
         } else {
-            $contact->countryId         = Mage::getSingleton('billysbilling/country')->getCountry($billingAddress->getCountryId());
+            $contact->countryId         = Mage::getSingleton('billysbilling/country')->getCountry($this->country);
             $contact->zipcodeText       = $billingAddress->getPostcode();
             $contact->stateText         = $billingAddress->getRegion();
             $contact->cityText          = $billingAddress->getCity();
@@ -86,6 +106,7 @@ class Nicklasmoeller_Billysbilling_Model_Contact extends Nicklasmoeller_Billysbi
                 $contact->name = $billingAddress->getName();
             }
         }
+
         return $contact;
     }
 }
