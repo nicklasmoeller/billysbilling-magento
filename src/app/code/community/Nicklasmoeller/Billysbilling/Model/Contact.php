@@ -46,9 +46,9 @@ class Nicklasmoeller_Billysbilling_Model_Contact extends Nicklasmoeller_Billysbi
 
         $contact = $this->buildCustomer($billingAddress);
 
-        $res = $this->client->request("POST", "/contacts", [
+        $res = $this->client->request("POST", "/contacts", array(
             'contact' => $contact
-        ]);
+        ));
 
         if ($res->status !== 200) {
             return false;
